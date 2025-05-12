@@ -19,3 +19,4 @@ int	main(int argc, char **argv)
     free_game(&game);
     return (0);
 }
+

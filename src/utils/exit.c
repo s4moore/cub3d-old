@@ -1,4 +1,5 @@
 #include "cub3d.h"
+
 #include <stdlib.h>
 
 void	exit_error(const char *msg)
@@ -39,4 +40,16 @@ void free_map_grid(t_game *game)
         }
         free(game->map.grid);
     }
+}
+
+void	exit_program(t_game *game)
+{
+	if (game->img)
+		mlx_destroy_image(game->mlx, game->img);
+	if (game->win)
+		mlx_destroy_window(game->mlx, game->win);
+	mlx_destroy_display(game->mlx);
+	free(game->mlx);
+	free(game);
+	exit(0);
 }
