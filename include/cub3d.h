@@ -26,8 +26,8 @@
 #ifndef M_PI
 # define M_PI 3.14159265358979323846
 #endif
-#define SCREEN_W 1800
-#define SCREEN_H 1080
+#define SCREEN_W 1080
+#define SCREEN_H 640
 typedef unsigned int Uint32;
 extern int	g_world_map[MAP_W][MAP_H];
 // Uint32*	texture[5];
@@ -219,7 +219,7 @@ void	put_planet_in_3d(t_game *game);
 void	load_planets(t_game *game);
 t_game	*init(void);
 void	exit_program(t_game *game);
-static inline int	pixel_pos(int x, int y, int size_line, int bpp);
+// static inline int	pixel_pos(int x, int y, int size_line, int bpp);
 void	put_pixel(t_game *game, int x, int y, int color);
 unsigned int	get_ticks(void);
 void	set_view_direction(t_game *game, char direction);
@@ -248,7 +248,7 @@ void	rotate_stars(t_game *game, t_star *stars, int direction);
 void	rotate_planets(t_game *game, int direction);
 void	check_left_arrow(t_game *game);
 void	check_right_arrow(t_game *game);
-int	update(t_game *game);
+int	main_loop(t_game *game);
 
 void parse_file_content(int fd, t_game *game, t_map_parser *map_parser);
 void parse_line(char *line, t_game *game, t_map_parser *map_parser);

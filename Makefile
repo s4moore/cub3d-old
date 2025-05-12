@@ -41,7 +41,7 @@ ifeq ($(UNAME_S), Darwin)
 	MLX = $(MLX_DIR)/libmlx.a -framework OpenGL -framework AppKit
 else
 	MLX_DIR = lib/mlx-linux
-	MLX = -lXext -lX11 -L/usr/lib -lm -lz -Llib/mlx-linux -lmlx
+	MLX =  -L/usr/lib -lm -lz -Llib/mlx-linux -lmlx -lXext -lX11
 endif
 
 # Build object files

@@ -34,11 +34,7 @@ void	create_stars(t_game *game)
 	double	theta;
 	int		i;
 	double	phi;
-	int		w;
-	int		h;
 
-	h = 0;
-	w = 0;
 	game->stars = malloc(sizeof(t_star) * NUM_STARS);
 	if (!game->stars)
 		return ;
