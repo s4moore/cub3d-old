@@ -9,10 +9,10 @@ MLX_DIR_MACOS = lib/mlx_opengl
 MLX_DIR_LINUX = lib/mlx-linux
 
 ifeq ($(MAKECMDGOALS),game)
-MAIN_FILE = src/game.c
+MAIN_FILE = src/main/game.c
 NAME = game
 else
-MAIN_FILE = src/main.c
+MAIN_FILE = src/main/main.c
 NAME = cub3D
 endif
 
@@ -20,16 +20,14 @@ endif
 LIBFT = $(LIBFT_DIR)/libft.a
 
 # Sources and objects
-FLOOR = src/floor/draw_floor.c src/floor/raycast_floor.c
+
+MAIN = src/main/loop.c
 INIT = src/init/init.c src/init/planets.c src/init/stars.c src/init/raycaster.c src/init/textures.c src/init/view.c
-INPUT = src/input/key_control.c src/input/key_utils.c
-LOOPS = src/loops/draw.c src/loops/update.c
-PLANETS = src/planets/draw_planet.c src/planets/rotate_planets.c
-STARS = src/stars/draw_stars.c src/stars/rotate_stars.c
-WALLS = src/walls/draw_walls.c src/walls/raycast_walls.c
-UTILS = src/utils/exit.c src/utils/various.c
+DRAW = src/draw/draw_floor.c src/draw/draw_planet.c src/draw/draw_stars.c src/draw/draw_walls.c src/draw/draw.c
+MATH = src/math/rotate_planets.c src/math/rotate_stars.c src/math/raycast_walls.c src/math/raycast_floor.c
+UTILS = src/utils/exit.c src/utils/various.c src/utils/key_control.c src/utils/key_utils.c
 PARSER = src/parser/parse_file.c src/parser/map_validation_2.c src/parser/parse_elements.c src/parser/process_map.c src/parser/map_validation.c
-SRCS = $(MAIN_FILE) $(FLOOR) $(INIT) $(INPUT) $(LOOPS) $(PLANETS) $(STARS) $(WALLS) $(PARSER) $(UTILS)
+SRCS = $(MAIN_FILE) $(MAIN) $(INIT) $(DRAW) $(MATH) $(UTILS) $(PARSER)
 OBJS = $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
 
 # Compiler
@@ -55,7 +53,7 @@ $(OBJ_DIR)/%.o: src/%.c
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
-	@mkdir -p $(OBJ_DIR)/parser $(OBJ_DIR)/utils
+	@mkdir -p $(OBJ_DIR)/parser $(OBJ_DIR)/utils  $(OBJ_DIR)/main  $(OBJ_DIR)/draw  $(OBJ_DIR)/init  $(OBJ_DIR)/math
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME) $(MLX)
 
 $(LIBFT):

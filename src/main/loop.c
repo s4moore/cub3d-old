@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycaster.c                                        :+:      :+:    :+:   */
+/*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: samoore <samoore@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/12 17:40:12 by samoore           #+#    #+#             */
-/*   Updated: 2025/05/12 22:19:43 by samoore          ###   ########.fr       */
+/*   Created: 2025/05/12 18:06:24 by samoore           #+#    #+#             */
+/*   Updated: 2025/05/12 22:34:02 by samoore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "cub3d.h"
 
-void	ray_caster_init(t_game *game)
+int	main_loop(t_game *game)
 {
-	game->player.x = 22.0;
-	game->player.y = 22.0;
-	game->dir.x = -1;
-	game->dir.y = 0;
-	game->plane_x = 0.2;
-	game->plane_y = 0.66;
-	game->time = 0;
-	game->old_time = 0;
-	set_view_direction(game, 'N');
-	load_textures(game);
+	check_up_down_arrows(game);
+	check_left_arrow(game);
+	check_right_arrow(game);
+	check_strafe(game);
+	if (game->img)
+		mlx_destroy_image(game->mlx, game->img);
+	game->img = mlx_new_image(game->mlx, SCREEN_W, SCREEN_H);
+	draw(game);
+	return (0);
 }
