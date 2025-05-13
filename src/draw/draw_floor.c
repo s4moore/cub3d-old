@@ -6,7 +6,7 @@
 /*   By: samoore <samoore@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 17:48:10 by samoore           #+#    #+#             */
-/*   Updated: 2025/05/13 11:57:24 by samoore          ###   ########.fr       */
+/*   Updated: 2025/05/13 13:26:42 by samoore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	draw_floor(t_game *game, t_draw_props *props, int x)
 	}
 }
 /*// Ceiling (mirror y)
-// uint_32 ceilColor = 
+// t_unit32 ceilColor = 
 	ceilTexture[floorgame->tex.y * TEXTURE_SIZE + floorgame->Tex.x];
 // put_pixel(game, x, screenHeight - y, ceilColor);*/
 

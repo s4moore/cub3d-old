@@ -6,12 +6,19 @@
 /*   By: samoore <samoore@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:55:24 by samoore           #+#    #+#             */
-/*   Updated: 2025/05/13 11:57:24 by samoore          ###   ########.fr       */
+/*   Updated: 2025/05/13 13:35:44 by samoore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+# ifdef __APPLE__
+#  define MLX_MACOS
+#  include <mlx.h>
+# elif defined(__linux__)
+#  define MLX_LINUX
+#  include <mlx.h>
+# endif
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -23,7 +30,7 @@
 # include <mlx.h>
 # include "libft.h"
 // # include "main.h"
-# include <X11/keysym.h> //keysym
+# include <X11/keysym.h>
 # include <sys/time.h>
 
 # define TEXTURE_SIZE 1024
@@ -41,14 +48,39 @@
 # define SCREEN_W 1800
 # define SCREEN_H 1080
 
-typedef unsigned int	uint_32;
+# define WIN_WIDTH 800
+# define WIN_HEIGHT 600
+
+# ifdef MLX_MACOS
+// macOS keycodes
+#  define KEY_W 13
+#  define KEY_A 0
+#  define KEY_S 1
+#  define KEY_D 2
+#  define KEY_ESC 53
+# else
+// Linux keycodes
+#  define KEY_W 119
+#  define KEY_A 97
+#  define KEY_S 115
+#  define KEY_D 100
+#  define KEY_ESC 65307
+# endif
+
+# define TEX_NORTH 0
+# define TEX_SOUTH 1
+# define TEX_WEST 2
+# define TEX_EAST 3
+
+typedef unsigned int	t_unit32;
 extern int				g_world_map[MAP_W][MAP_H];
 
-typedef struct s_xyz {
-    double x;
-    double y;
-    double z;
-} t_xyz;
+typedef struct s_xyz
+{
+	double	x;
+	double	y;
+	double	z;
+}	t_xyz;
 
 typedef struct s_xy_dbl
 {
@@ -82,10 +114,10 @@ typedef struct s_draw_props
 	double		col;
 }	t_draw_props;
 
-
-typedef struct s_planet{
-	uint_32		*img;
-	uint_32		*addr;
+typedef struct s_planet
+{
+	t_unit32	*img;
+	t_unit32	*addr;
 	int			w;
 	int			h;
 	t_xyz		pos;
@@ -95,69 +127,41 @@ typedef struct s_planet{
 	double		orbit_angle;
 }	t_planet;
 
-#ifdef __APPLE__
-    #define MLX_MACOS
-    #include <mlx.h>
-#elif defined(__linux__)
-    #define MLX_LINUX
-    #include <mlx.h>
-#endif
+typedef struct s_map_parser
+{
+	char	**lines;
+	int		row_count;
+	int		map_start;
+	int		capacity;
+}	t_map_parser;
 
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 600
+typedef struct s_visited
+{
+	int	**array;
+	int	height;
+	int	width;
+}	t_visited;
 
+typedef struct s_rgb_parser
+{
+	char	**parts;
+	char	*r_str;
+	char	*g_str;
+	char	*b_str;
+}	t_rgb_parser;
 
-#ifdef MLX_MACOS
-    // macOS keycodes
-    #define KEY_W 13
-    #define KEY_A 0
-    #define KEY_S 1
-    #define KEY_D 2
-    #define KEY_ESC 53
-#else
-    // Linux keycodes
-    #define KEY_W 119
-    #define KEY_A 97
-    #define KEY_S 115
-    #define KEY_D 100
-    #define KEY_ESC 65307
-#endif
+typedef struct s_color
+{
+	int	r;
+	int	g;
+	int	b;
+}	t_color;
 
-# define TEX_NORTH 0
-# define TEX_SOUTH 1
-# define TEX_WEST 2
-# define TEX_EAST 3
-
-typedef struct s_map_parser {
-    char    **lines;
-    int     row_count;
-    int     map_start;
-	int     capacity;
-} t_map_parser;
-
-typedef struct s_visited {
-    int     **array;
-    int     height;
-    int     width;
-} t_visited;
-
-typedef struct s_rgb_parser {
-    char    **parts;
-    char    *r_str;
-    char    *g_str;
-    char    *b_str;
-} t_rgb_parser;
-
-typedef struct s_color {
-	int r;
-	int g;
-	int b;
-} t_color;
-
-typedef struct s_texture {
+typedef struct s_texture
+{
 	char *path;
-	uint_32 *img;
-	uint_32 *addr;
+	t_unit32 *img;
+	t_unit32 *addr;
 	int width;
 	int height;
 	int bpp;
@@ -165,11 +169,12 @@ typedef struct s_texture {
 	int endian;
 } t_texture;
 
-typedef struct s_map {
-	char **grid;
-	int width;
-	int height;
-} t_map;
+typedef struct s_map
+{
+	int		height;
+	int		width;
+	char	**grid;
+}	t_map;
 
 typedef struct s_player {
 	double x;

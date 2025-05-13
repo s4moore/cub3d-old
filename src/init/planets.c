@@ -6,7 +6,7 @@
 /*   By: samoore <samoore@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 17:28:05 by samoore           #+#    #+#             */
-/*   Updated: 2025/05/13 11:57:24 by samoore          ###   ########.fr       */
+/*   Updated: 2025/05/13 13:26:42 by samoore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	load_planets(t_game *game)
 			&game->planets[i].w, &game->planets[i].h);
 	i = -1;
 	while (++i < 1)
-		game->planets[i].addr = (uint_32*)mlx_get_data_addr(
+		game->planets[i].addr = (t_unit32*)mlx_get_data_addr(
 				game->planets[i].img, &line_len, &bpp, &endian);
 	game->planets[0].w = 800;
 	game->planets[0].h = 800;

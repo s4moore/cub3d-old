@@ -6,7 +6,7 @@
 /*   By: samoore <samoore@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 17:39:11 by samoore           #+#    #+#             */
-/*   Updated: 2025/05/13 11:57:24 by samoore          ###   ########.fr       */
+/*   Updated: 2025/05/13 13:26:42 by samoore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ void	load_textures(t_game *game)
 			fprintf(stderr, "Failed to load texture: %s\n", paths[i]);
 			exit(1);
 		}
-		game->tex[i].addr = (uint_32 *)mlx_get_data_addr(game->tex[i].img, &bpp, &line_len, &endian);
+		game->tex[i].addr = (t_unit32 *)mlx_get_data_addr(game->tex[i].img, &bpp, &line_len, &endian);
 	}
 }

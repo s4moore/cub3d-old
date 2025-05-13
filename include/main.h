@@ -6,7 +6,7 @@
 /*   By: samoore <samoore@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 12:25:08 by samoore           #+#    #+#             */
-/*   Updated: 2025/05/13 11:57:24 by samoore          ###   ########.fr       */
+/*   Updated: 2025/05/13 13:26:42 by samoore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@
 // # define M_PI 3.14159265358979323846
 // #endif
 
-typedef unsigned int uint_32;
-uint_32	buffer[SCREEN_H][SCREEN_W];
+typedef unsigned int t_unit32;
+t_unit32	buffer[SCREEN_H][SCREEN_W];
 
 
 // typedef struct s_xyz {
@@ -120,7 +120,7 @@ int	g_world_map[MAP_W][MAP_H] = \
 
 
 // typedef struct s_planet{
-// 	uint_32		*img;
+// 	t_unit32		*img;
 // 	int			w;
 // 	int			h;
 // 	t_xyz		pos;
