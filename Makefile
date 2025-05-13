@@ -57,11 +57,15 @@ $(NAME): $(LIBFT) $(MLX_LIB) $(OBJS)
 	@mkdir -p $(OBJ_DIR)/parser $(OBJ_DIR)/utils  $(OBJ_DIR)/main  $(OBJ_DIR)/draw  $(OBJ_DIR)/init  $(OBJ_DIR)/math
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX) -o $(NAME) $(MLX)
 
-$(MLX_DIR):
-	git submodule update --init --recursive $(MLX_DIR)
+$(MLX_DIR)/Makefile:
+	@echo "Restoring submodule: $(MLX_DIR)"
+	@git submodule deinit -f $(MLX_DIR) || true
+	@git submodule update --init --recursive $(MLX_DIR)
 
-$(MLX_LIB): | $(MLX_DIR)
+
+$(MLX_LIB): $(MLX_DIR)/Makefile
 	$(MAKE) -C $(MLX_DIR)
+
 
 # Build object files
 $(OBJ_DIR)/%.o: src/%.c
@@ -73,12 +77,17 @@ $(LIBFT):
 
 clean:
 	make -C $(LIBFT_DIR) clean
-	make -C $(MLX_DIR) clean
+	# @if [ -d "$(MLX_DIR)" ]; then make -C $(MLX_DIR) clean; fi
 	rm -rf $(OBJ_DIR)
+	rm -rf $(MLX_DIR_LINUX)/*
+	rm -rf $(MLX_DIR_MACOS)/*
 
 fclean: clean
 	make -C $(LIBFT_DIR) fclean
-	rm -rf $(NAME) $(MLX_DIR)/
+	rm -rf $(NAME)
+	find $(MLX_DIR_LINUX) -type f ! -name '.git' -delete 2>/dev/null || true
+	find $(MLX_DIR_MACOS) -type f ! -name '.git' -delete 2>/dev/null || true
+
 
 re: fclean all
 
