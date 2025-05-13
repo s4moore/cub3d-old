@@ -6,7 +6,7 @@
 /*   By: samoore <samoore@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:55:24 by samoore           #+#    #+#             */
-/*   Updated: 2025/05/13 13:35:44 by samoore          ###   ########.fr       */
+/*   Updated: 2025/05/13 13:46:09 by samoore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,14 +159,14 @@ typedef struct s_color
 
 typedef struct s_texture
 {
-	char *path;
-	t_unit32 *img;
-	t_unit32 *addr;
-	int width;
-	int height;
-	int bpp;
-	int line_len;
-	int endian;
+	t_unit32	*img;
+	t_unit32	*addr;
+	char		*path;
+	int			width;
+	int			height;
+	int			bpp;
+	int			line_len;
+	int			endian;
 } t_texture;
 
 typedef struct s_map
@@ -176,14 +176,16 @@ typedef struct s_map
 	char	**grid;
 }	t_map;
 
-typedef struct s_player {
-	double x;
-	double y;
-	double dir_x;
-	double dir_y;
-} t_player;
+typedef struct s_player
+{
+	double	x;
+	double	y;
+	double	dir_x;
+	double	dir_y;
+}	t_player;
 
-typedef struct s_star {
+typedef struct s_star
+{
     double	x;
     double	y;
     double	z;
@@ -194,18 +196,18 @@ typedef struct s_star {
 	int		twinkle;
 	int		timer;
 	int		twinkle_color;
-} t_star;
+}	t_star;
 
-typedef struct s_game {
-	void *mlx;
-	void *win;
-	t_texture tex[5];
-	t_color floor;
-	t_color ceiling;
-	t_map map;
-	t_player player;
-
+typedef struct s_game
+{
 	t_draw_props	*props;
+	t_texture	tex[5];
+	t_player	player;
+	t_color		floor;
+	t_color		ceiling;
+	t_map		map;
+	void		*mlx;
+	void		*win;
 	t_star			*stars;
 	t_xyz			dir;
 	void			*img;
