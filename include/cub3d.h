@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: samoore <samoore@student.42london.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/13 11:55:24 by samoore           #+#    #+#             */
+/*   Updated: 2025/05/13 11:57:24 by samoore          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
-#define CUB3D_H
+# define CUB3D_H
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -14,23 +26,23 @@
 # include <X11/keysym.h> //keysym
 # include <sys/time.h>
 
-#define TEXTURE_SIZE 1024
-#define NUM_TEXTURES 5
-#define NUM_STARS 30000
-#define NUM_PLANETS 1
-#define STAR_SPHERE_RADIUS 1000.0
-#define MAP_W 24
-#define MAP_H 24
-#define LEFT -1
-#define RIGHT 1
-#ifndef M_PI
-# define M_PI 3.14159265358979323846
-#endif
-#define SCREEN_W 1800
-#define SCREEN_H 1080
-typedef unsigned int Uint32;
-extern int	g_world_map[MAP_W][MAP_H];
-// Uint32*	texture[5];
+# define TEXTURE_SIZE 1024
+# define NUM_TEXTURES 5
+# define NUM_STARS 30000
+# define NUM_PLANETS 1
+# define STAR_SPHERE_RADIUS 1000.0
+# define MAP_W 24
+# define MAP_H 24
+# define LEFT -1
+# define RIGHT 1
+# ifndef M_PI
+#  define M_PI 3.14159265358979323846
+# endif
+# define SCREEN_W 1800
+# define SCREEN_H 1080
+
+typedef unsigned int	uint_32;
+extern int				g_world_map[MAP_W][MAP_H];
 
 typedef struct s_xyz {
     double x;
@@ -72,8 +84,8 @@ typedef struct s_draw_props
 
 
 typedef struct s_planet{
-	Uint32		*img;
-	Uint32		*addr;
+	uint_32		*img;
+	uint_32		*addr;
 	int			w;
 	int			h;
 	t_xyz		pos;
@@ -144,8 +156,8 @@ typedef struct s_color {
 
 typedef struct s_texture {
 	char *path;
-	Uint32 *img;
-	Uint32 *addr;
+	uint_32 *img;
+	uint_32 *addr;
 	int width;
 	int height;
 	int bpp;
@@ -248,7 +260,7 @@ void	rotate_stars(t_game *game, t_star *stars, int direction);
 void	rotate_planets(t_game *game, int direction);
 void	check_left_arrow(t_game *game);
 void	check_right_arrow(t_game *game);
-int	update(t_game *game);
+int	main_loop(t_game *game);
 
 void parse_file_content(int fd, t_game *game, t_map_parser *map_parser);
 void parse_line(char *line, t_game *game, t_map_parser *map_parser);

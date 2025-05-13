@@ -7,14 +7,7 @@ INCL_DIR = include
 LIBFT_DIR = lib/libft
 MLX_DIR_MACOS = lib/mlx_opengl
 MLX_DIR_LINUX = lib/mlx-linux
-
-ifeq ($(MAKECMDGOALS),game)
-MAIN_FILE = src/main/game.c
-NAME = game
-else
-MAIN_FILE = src/main/main.c
-NAME = cub3D
-endif
+MLX_LIB = $(MLX_DIR)/libmlx.a
 
 # Libraries
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -30,9 +23,18 @@ PARSER = src/parser/parse_file.c src/parser/map_validation_2.c src/parser/parse_
 SRCS = $(MAIN_FILE) $(MAIN) $(INIT) $(DRAW) $(MATH) $(UTILS) $(PARSER)
 OBJS = $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
 
+
 # Compiler
 CC = cc
 CFLAGS = -g -Wall -Wextra -Werror -I$(INCL_DIR) -I$(LIBFT_DIR)/include -I$(MLX_DIR)
+
+
+ifeq ($(MAKECMDGOALS),game)
+MAIN_FILE = src/main/game.c
+else
+MAIN_FILE = src/main/main.c
+endif
+
 
 # Platform detection
 UNAME_S := $(shell uname -s)
@@ -41,26 +43,33 @@ ifeq ($(UNAME_S), Darwin)
 	MLX = $(MLX_DIR)/libmlx.a -framework OpenGL -framework AppKit
 else
 	MLX_DIR = lib/mlx-linux
-	MLX = -lXext -lX11 -L/usr/lib -lm -lz -Llib/mlx-linux -lmlx
+	MLX = -lXext -lX11 -L/usr/lib -lm -lz -L$(MLX_DIR) -lmlx
 endif
+
+
+# Rules
+
+game: all
+
+all: $(MLX_LIB) $(NAME)
+
+$(NAME): $(LIBFT) $(MLX_LIB) $(OBJS)
+	@mkdir -p $(OBJ_DIR)/parser $(OBJ_DIR)/utils  $(OBJ_DIR)/main  $(OBJ_DIR)/draw  $(OBJ_DIR)/init  $(OBJ_DIR)/math
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX) -o $(NAME) $(MLX)
+
+$(MLX_DIR):
+	git submodule update --init --recursive $(MLX_DIR)
+
+$(MLX_LIB): | $(MLX_DIR)
+	$(MAKE) -C $(MLX_DIR)
 
 # Build object files
 $(OBJ_DIR)/%.o: src/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Rules
-all: $(NAME)
-
-$(NAME): $(LIBFT) $(MLX) $(OBJS)
-	@mkdir -p $(OBJ_DIR)/parser $(OBJ_DIR)/utils  $(OBJ_DIR)/main  $(OBJ_DIR)/draw  $(OBJ_DIR)/init  $(OBJ_DIR)/math
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME) $(MLX)
-
 $(LIBFT):
 	make -C $(LIBFT_DIR) re
-
-$(MLX):
-	make -C $(MLX_DIR)
 
 clean:
 	make -C $(LIBFT_DIR) clean
@@ -69,7 +78,7 @@ clean:
 
 fclean: clean
 	make -C $(LIBFT_DIR) fclean
-	rm -f $(NAME)
+	rm -rf $(NAME) $(MLX_DIR)/
 
 re: fclean all
 

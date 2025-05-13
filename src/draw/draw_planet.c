@@ -6,7 +6,7 @@
 /*   By: samoore <samoore@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 17:51:08 by samoore           #+#    #+#             */
-/*   Updated: 2025/05/12 22:01:45 by samoore          ###   ########.fr       */
+/*   Updated: 2025/05/13 11:57:24 by samoore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	put_image(t_game *game)
 {
 	// t_xy_int	pos;
-	Uint32		clear;
+	uint_32		clear;
 	int			size;
 	int			i;
 	int			j;
