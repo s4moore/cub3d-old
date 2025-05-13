@@ -1,0 +1,7 @@
+[submodule "lib/mlx-linux"]
+	path = lib/mlx-linux
+	url = git@github.com:42paris/minilibx-linux.git
+[submodule "lib/mlx_opengl"]
+	path = lib/mlx_opengl
+	url = git@github.com:gcamerli/minilibx.git
+	branch = 42

@@ -1,4 +1,7 @@
-mlx_assorted/
-.vscode/
-objects/
+obj/
 cub3d
+vscode*
+.vscode*
+lib/libft/libft.a
+*.log
+settings.json

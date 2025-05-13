@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   rotate_planets.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: samoore <samoore@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/08 12:25:08 by samoore           #+#    #+#             */
-/*   Updated: 2025/05/08 13:52:29 by samoore          ###   ########.fr       */
+/*   Created: 2025/05/12 18:04:48 by samoore           #+#    #+#             */
+/*   Updated: 2025/05/12 18:39:42 by samoore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
 
-# include <mlx.h>
-# include <math.h>
-# include <stdlib.h>
+#include "cub3d.h"
 
-# define SCREEN_WIDTH 640
-# define SCREEN_HEIGHT 480
-# define TEX_WIDTH 64
-# define TEX_HEIGHT 64
-
-typedef struct t_game
+void	rotate_planets(t_game *game, int direction)
 {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	char	*img_data;
-	int		bpp;
-	int		size_line;
-	int		endian;
-}	t_game;
+	double	a;
+	double	r;
 
-#endif
+	game->planets[0].orbit_angle += game->rot_speed * direction;
+	a = game->planets[0].orbit_angle;
+	r = game->planets[0].orbit_radius;
+	game->planets[0].pos.x = r * cos(a);
+	game->planets[0].pos.z = r * sin(a);
+	game->planets[0].pos.y = game->planets[0].orbit_height;
+}
